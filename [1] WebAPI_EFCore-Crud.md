@@ -19,6 +19,7 @@
     - [HttpGet](#httpget)
     - [HttpPost](#httppost-1)
     - [HttpPut](#httpput)
+    - [HttpDelete](#httpdelete-1)
 
 ## Prepare & Create the Project
 
@@ -136,7 +137,7 @@ public ActionResult<VideoGame> AddVideoGame(VideoGame newGame)
 public IActionResult UpdateVideoGame(int id, VideoGame updatedGame)
 {
     var game = videoGames.FirstOrDefault(g => g.Id == id);
-    if (game is null) return NotFound;
+    if (game is null) return NotFound();
 
     game.Title = updatedGame.Title;
     // so on
@@ -149,7 +150,7 @@ public IActionResult UpdateVideoGame(int id, VideoGame updatedGame)
 public IActionResult DeleteVideoGame(int id)
 {
     var game = videoGames.FirstOrDefault(g => g.Id == id);
-    if (game is null) return NotFound;
+    if (game is null) return NotFound();
 
     VideoGames.Remove(game);
     return NoContent();
@@ -316,3 +317,33 @@ public async Task<ActionResult<VideoGame>> AddVideoGame(VideoGame newGame)
 }
 ```
 ### HttpPut
+```csharp
+[HttpPut("{id}")]
+public await Task<IActionResult> UpdateVideoGame(int id, VideoGame updatedGame)
+{
+    var game = await _context.VideoGames.FindAsync(id);
+    if (game is null) return NotFound();
+
+    game.Title = updatedGame.Title;
+    // so on
+
+    await _context.SaveChangesAsync();
+
+    return NoContent();
+}
+```
+
+### HttpDelete
+```csharp
+[HttpDelete("{id}")]
+public async Task<IActionResult> DeleteVideoGame(int id)
+{
+    var game = await _context.VideoGames.FindAsync(id);
+    if (game is null) return NotFound();
+
+    await _context.VideoGames.Remove(game);
+    await _context.SaveChangesAsync();
+
+    return NoContent();
+}
+```
