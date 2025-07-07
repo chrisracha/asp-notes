@@ -239,7 +239,7 @@ PM > Update-Database
 ```
 
 ## CRUD with EF Core
-We now have to inject the data context
+We now have to inject the data context, in the `DbContext` file
 
 ```csharp
 private readonly VideoGameDbContext _context = context;
