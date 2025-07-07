@@ -194,8 +194,8 @@ in `appsettings.json`
     "ConnectionStrins": {
         "DefaultConnection": "Server=localhost\\SQLExpress;Database=VideoGameDb;Trusted_Connection=true;TrustServerCertificate=true"
     },
-    Logging: {
-        ...
+    "Logging": {
+        // ...
     }
 }
 ```
